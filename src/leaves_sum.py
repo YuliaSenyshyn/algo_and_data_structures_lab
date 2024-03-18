@@ -5,11 +5,12 @@ class BinaryTree:
         self.right = None
 
 def leavesSum(root):
-    def helper(node, is_left_child):
+    def helper(node, is_right_child):
         if not node:
             return 0
-        if not node.left and not node.right and is_left_child:
+        if not node.left and not node.right and is_right_child:
             return node.value
-        return helper(node.left, True) + helper(node.right, False)
+        return helper(node.left, False) + helper(node.right, True)
 
-    return helper(root, False)
+    return helper(root, True)
+
