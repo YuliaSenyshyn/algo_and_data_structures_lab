@@ -31,26 +31,32 @@ class DisjointSet:
                 self.rank[root_elem1] += 1
         return True
 
+def build_adjacency_list(graph):
+    edges = []
+    for node1 in range(len(graph)):
+        for node2 in range(node1 + 1, len(graph)):
+            if graph[node1][node2] != 0:
+                edges.append((graph[node1][node2], node1, node2))
+    edges.sort()
+    return edges
+
+# don`t understandable variables - i, j
+# line 37 -42 get into new method and called it build_adjacency_list()
 
 def kruskals_algo(graph):
     disjoint_set = DisjointSet(len(graph))
-    edges = []
-    for i in range(len(graph)):
-        for j in range(i + 1, len(graph)):
-            if graph[i][j] != 0:
-                edges.append((graph[i][j], i, j))
-    edges.sort()
 
-    mst_edges = []
+# don't understandable name of variable - mst-edges
+    minimum_spanning_tree_edges = []
     min_weight = 0
 
     for weight, node1, node2 in edges:
         if disjoint_set.find(node1) != disjoint_set.find(node2):
             disjoint_set.union(disjoint_set.find(node1), disjoint_set.find(node2))
             min_weight += weight
-            mst_edges.append((node1, node2))
+            minimum_spanning_tree_edges.append((node1, node2))
 
-    return min_weight, mst_edges
+    return min_weight, minimum_spanning_tree_edges
 
 
 def read_graph_from_csv(filename):
