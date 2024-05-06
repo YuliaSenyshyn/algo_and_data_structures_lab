@@ -31,7 +31,19 @@ class DisjointSet:
                 self.rank[root_elem1] += 1
         return True
 
+
 def build_adjacency_list(graph):
+    """
+        Constructs the adjacency list based on the adjacency matrix of a graph.
+
+        Parameters:
+        - graph (list): The adjacency matrix of the graph.
+
+        Returns:
+        list: A list of graph edges represented as tuples (weight, vertex1, vertex2).
+        The edges are sorted in ascending order of weight
+    """
+
     edges = []
     for node1 in range(len(graph)):
         for node2 in range(node1 + 1, len(graph)):
@@ -40,13 +52,10 @@ def build_adjacency_list(graph):
     edges.sort()
     return edges
 
-# don`t understandable variables - i, j
-# line 37 -42 get into new method and called it build_adjacency_list()
 
 def kruskals_algo(graph):
     disjoint_set = DisjointSet(len(graph))
 
-# don't understandable name of variable - mst-edges
     minimum_spanning_tree_edges = []
     min_weight = 0
 
