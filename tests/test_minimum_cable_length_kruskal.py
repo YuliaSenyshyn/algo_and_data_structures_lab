@@ -17,10 +17,10 @@ class TestKruskalsAlgo(unittest.TestCase):
 
 class TestMinimumCableLength(unittest.TestCase):
     def test_minimum_cable_length(self):
-        graph = read_graph_from_csv('../src/resources/island.csv')
+        graph = read_graph_from_csv('src/resources/island.csv')
         min_weight, _ = kruskals_algo(graph)
 
-        with open('../src/resources/output.island', 'r') as file:
+        with open('src/resources/output.island', 'r') as file:
             expected_result = int(file.read().strip())
 
         self.assertEqual(min_weight, expected_result)
@@ -28,7 +28,7 @@ class TestMinimumCableLength(unittest.TestCase):
 
 class TestFileNotEmpty(unittest.TestCase):
     def test_file_not_empty(self):
-        graph = read_graph_from_csv('../src/resources/island.csv')
+        graph = read_graph_from_csv('src/resources/island.csv')
         self.assertTrue(graph, "The file 'island.csv' is empty")
 
 

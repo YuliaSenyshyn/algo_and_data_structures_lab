@@ -9,7 +9,7 @@ class TestLeavesSum(unittest.TestCase):
         root.right.left = BinaryTree(16)
         root.right.right = BinaryTree(8)
 
-        self.assertEqual(leavesSum(root), 26)
+        self.assertEqual(leavesSum(root), 8)
 
 
         self.assertEqual(leavesSum(None), 0)

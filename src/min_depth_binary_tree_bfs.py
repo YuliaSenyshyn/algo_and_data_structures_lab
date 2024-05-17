@@ -1,44 +1,53 @@
-from collections import deque
+class Node:
+    def __init__(self, value, priority):
+        self.value = value
+        self.priority = priority
+        self.left = None
+        self.right = None
 
+class BinaryTree:
+    def __init__(self):
+        self.root = None
 
-def read_binary_tree_input(file_name):
-    with open(file_name, 'r') as f:
-        root = int(f.readline())
-        edges = [tuple(map(int, line.strip().split(','))) for line in f]
+    def add(self, value, priority):
+        if not self.root:
+            self.root = Node(value, priority)
+        else:
+            self._add_recursive(self.root, value, priority)
 
-        adjacency_list = {}
-        for u, v in edges:
-            if u in adjacency_list:
-                adjacency_list[u].append(v)
+    def _add_recursive(self, node, value, priority):
+        if priority <= node.priority:
+            if node.left is None:
+                node.left = Node(value, priority)
             else:
-                adjacency_list[u] = [v]
+                self._add_recursive(node.left, value, priority)
+        else:
+            if node.right is None:
+                node.right = Node(value, priority)
+            else:
+                self._add_recursive(node.right, value, priority)
 
-    return root, adjacency_list
+    def remove_max_priority(self):
+        if self.root is None:
+            return None
 
-def min_depth_binary_tree_bfs(root, adjacency_list):
-    if root not in adjacency_list:
-        return 0
+        max_node, parent = self._find_max_node_and_parent(self.root, None)
+        if parent is None:
+            self.root = max_node.left
+        else:
+            parent.right = max_node.left
+        return max_node.value
 
-    visited = set()
-    queue = deque([(root, 1)])
-
-    while queue:
-        current_node, depth = queue.popleft()
-        if current_node not in visited:
-            visited.add(current_node)
-            if current_node not in adjacency_list:
-                return depth
-            for neighbor in adjacency_list[current_node]:
-                if neighbor not in visited:
-                    queue.append((neighbor, depth + 1))
-
-
-def write_output(file_name, min_depth):
-    with open(file_name, 'w') as file:
-        file.write(str(min_depth))
+    def _find_max_node_and_parent(self, node, parent):
+        if node.right is None:
+            return node, parent
+        return self._find_max_node_and_parent(node.right, node)
 
 
-if __name__ == "__main__":
-    root, adjacency_list = read_binary_tree_input("resources/input.txt")
-    min_depth = min_depth_binary_tree_bfs(root, adjacency_list)
-    write_output("resources/output.txt", min_depth)
+    def inorder_tree(self, node):
+        if node is None:
+            return
+
+        self.inorder_tree(node.right)
+        print(node.priority)
+        self.inorder_tree(node.left)

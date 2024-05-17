@@ -55,6 +55,8 @@ def build_adjacency_list(graph):
 
 def kruskals_algo(graph):
     disjoint_set = DisjointSet(len(graph))
+    edges = build_adjacency_list(graph)
+
 
     minimum_spanning_tree_edges = []
     min_weight = 0
@@ -78,12 +80,12 @@ def read_graph_from_csv(filename):
 
 
 def main():
-    filename = 'resources/island.csv'
+    filename = '..src/resources/island.csv'
     graph = read_graph_from_csv(filename)
 
     min_cable_length, _ = kruskals_algo(graph)
 
-    filename = 'resources/output.island'
+    filename = '..src/resources/output.island'
     with open(filename, 'w') as output_file:
         output_file.write(str(min_cable_length))
 

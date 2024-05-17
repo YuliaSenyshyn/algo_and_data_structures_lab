@@ -1,6 +1,6 @@
 import unittest
 
-from AlgoLab1 import gardener_bot_work
+from src.gardener_bot_work_pumpkins import gardener_bot_work
 
 
 class TestGardenerBotWork(unittest.TestCase):
